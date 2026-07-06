@@ -7,7 +7,7 @@ export const siteConfig = {
   tagline: "Gasless, but fast.",
   description:
     "Universal gasless transaction protocol for BOT Chain. Deploy gasless dApps with one line of code. Built natively on BOT Chain's EOA Paymaster.",
-  url: "https://ghasty.dev",
+  url: "https://ghasty.vercel.app",
   social: {
     twitter: "@BOTChain_ai",
     github: "https://github.com/subheeksh5599/Ghasty",
