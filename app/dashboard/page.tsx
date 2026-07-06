@@ -1,7 +1,6 @@
 "use client";
 
-import { useAccount, useReadContract } from "wagmi";
-import type { Metadata } from "next";
+import { useAccount, useBalance, useReadContract } from "wagmi";
 import Link from "next/link";
 
 const REGISTRY_ADDRESS = "0x85C2dB87F93827a057838b788D28B89dA4fD8c19" as `0x${string}`;
@@ -45,6 +44,7 @@ function formatBOT(wei: bigint): string {
 
 export default function DashboardPage() {
   const { isConnected, address } = useAccount();
+  const { data: balance } = useBalance({ address });
 
   return (
     <main className="flex min-h-screen flex-col px-6 pt-32 pb-24">
@@ -53,6 +53,37 @@ export default function DashboardPage() {
           <Link href="/" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
             &larr; Back
           </Link>
+        </div>
+
+        <div className="border border-foreground/10 p-5 mb-8">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-400" : "bg-red-400"}`} />
+              <span className="text-xs uppercase tracking-[0.2em] font-bold">
+                {isConnected ? "Connected" : "Not Connected"}
+              </span>
+              {isConnected && address && (
+                <>
+                  <span className="text-muted-foreground text-xs font-mono">
+                    {address.slice(0, 6)}...{address.slice(-4)}
+                  </span>
+                  {balance && (
+                    <span className="text-muted-foreground text-xs font-mono">
+                      {(Number(balance.value) / 10 ** balance.decimals).toFixed(4)} {balance.symbol}
+                    </span>
+                  )}
+                </>
+              )}
+            </div>
+            {!isConnected && (
+              <Link
+                href="/wallet"
+                className="text-[10px] uppercase tracking-[0.2em] text-accent hover:text-accent/80 border-b border-accent/30 pb-0.5"
+              >
+                Connect Wallet
+              </Link>
+            )}
+          </div>
         </div>
 
         <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -64,11 +95,6 @@ export default function DashboardPage() {
               Sponsor policies, gas spend, and contract coverage on BOT Chain testnet.
             </p>
           </div>
-          {isConnected ? (
-            <span className="text-sm text-green-500 font-mono">Connected: {address?.slice(0, 6)}...{address?.slice(-4)}</span>
-          ) : (
-            <span className="text-sm text-muted-foreground">Connect wallet to view live data</span>
-          )}
         </div>
 
         <div className="grid gap-6 md:grid-cols-4">

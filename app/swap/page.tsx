@@ -1,8 +1,8 @@
 "use client";
 
-import { useAccount, useReadContract } from "wagmi";
+import { useAccount } from "wagmi";
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 const ZEROSWAP_ADDRESS = "0x9ef56cef4043ABfDBf72acB3C928BC560fCc91a0" as `0x${string}`;
 
@@ -18,7 +18,6 @@ const ZEROSWAP_ABI = [
 
 export default function SwapPage() {
   const { isConnected, address } = useAccount();
-  const [txStatus, setTxStatus] = useState<string | null>(null);
 
   return (
     <main className="flex min-h-screen flex-col items-center px-6 pt-32 pb-24">
@@ -27,6 +26,30 @@ export default function SwapPage() {
           <Link href="/" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
             &larr; Back
           </Link>
+        </div>
+
+        <div className="border border-foreground/10 p-5 mb-8">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-400" : "bg-red-400"}`} />
+              <span className="text-xs uppercase tracking-[0.2em] font-bold">
+                {isConnected ? "Connected" : "Not Connected"}
+              </span>
+              {isConnected && address && (
+                <span className="text-muted-foreground text-xs font-mono">
+                  {address.slice(0, 6)}...{address.slice(-4)}
+                </span>
+              )}
+            </div>
+            {!isConnected && (
+              <Link
+                href="/wallet"
+                className="text-[10px] uppercase tracking-[0.2em] text-accent hover:text-accent/80 border-b border-accent/30 pb-0.5"
+              >
+                Connect Wallet
+              </Link>
+            )}
+          </div>
         </div>
 
         <div className="flex items-center justify-between">
@@ -38,16 +61,6 @@ export default function SwapPage() {
               A mini DEX where users with <strong>zero BOT</strong> can swap, approve, and add liquidity — all gas sponsored by Ghasty.
             </p>
           </div>
-          {isConnected ? (
-            <div className="text-right">
-              <p className="text-sm text-green-500 font-mono">
-                {address?.slice(0, 6)}...{address?.slice(-4)}
-              </p>
-              <p className="text-muted-foreground text-xs mt-1">Connected</p>
-            </div>
-          ) : (
-            <p className="text-muted-foreground text-sm">Connect wallet to interact</p>
-          )}
         </div>
 
         {!isConnected ? (
