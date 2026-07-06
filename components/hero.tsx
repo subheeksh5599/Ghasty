@@ -184,7 +184,7 @@ export function Hero(): ReactNode {
           Zero BOT. Real Swaps.
         </h2>
         <motion.a
-          href="#"
+          href="https://github.com/subheeksh5599/Ghasty"
           className="bg-accent group mt-8 inline-flex w-full items-center justify-center gap-3 rounded-md py-3 pl-5 pr-3 font-medium text-black shadow-lg shadow-accent/25 transition-all duration-500 ease-out hover:rounded-[50px] hover:shadow-xl hover:shadow-accent/40 sm:w-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Web3Provider } from "@/components/web3-provider";
 import { ReducedMotionProvider } from "@/lib/motion";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeProvider } from "next-themes";
@@ -14,7 +15,9 @@ export function Providers({ children }: { children: ReactNode }): ReactNode {
       disableTransitionOnChange
     >
       <ReducedMotionProvider>
-        <SmoothScroll>{children}</SmoothScroll>
+        <Web3Provider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </Web3Provider>
       </ReducedMotionProvider>
     </ThemeProvider>
   );

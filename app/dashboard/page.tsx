@@ -1,26 +1,57 @@
+"use client";
+
+import { useAccount, useReadContract } from "wagmi";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { createMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = createMetadata({
-  title: "Dashboard — Ghasty Protocol",
-  description: "Manage your gasless transaction sponsor policies on BOT Chain.",
-  path: "/dashboard",
-});
+const REGISTRY_ADDRESS = "0x85C2dB87F93827a057838b788D28B89dA4fD8c19" as `0x${string}`;
 
-const MOCK_POLICIES = [
-  { name: "ghasty-demo", owner: "0x1234...5678", cap: "0.1 BOT/day", pool: "0.85 BOT", txs: 142, active: true },
-  { name: "defi-app", owner: "0xabcd...ef01", cap: "1.0 BOT/day", pool: "5.2 BOT", txs: 89, active: true },
-  { name: "nft-drop", owner: "0x9876...5432", cap: "0.5 BOT/day", pool: "2.1 BOT", txs: 34, active: false },
-];
+const REGISTRY_ABI = [
+  {
+    type: "function",
+    name: "policies",
+    inputs: [{ name: "", type: "string" }],
+    outputs: [
+      { name: "owner", type: "address" },
+      { name: "dailyCap", type: "uint256" },
+      { name: "dailySpent", type: "uint256" },
+      { name: "lastResetDay", type: "uint256" },
+      { name: "gasPool", type: "uint256" },
+      { name: "active", type: "bool" },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "getSponsorStats",
+    inputs: [{ name: "policyName", type: "string" }],
+    outputs: [
+      { name: "totalSponsored", type: "uint256" },
+      { name: "totalTxs", type: "uint256" },
+      { name: "dailySpent", type: "uint256" },
+      { name: "dailyCap", type: "uint256" },
+      { name: "gasPool", type: "uint256" },
+      { name: "active", type: "bool" },
+    ],
+    stateMutability: "view",
+  },
+] as const;
+
+const POLICIES = ["ghasty-demo"];
+
+function formatBOT(wei: bigint): string {
+  return (Number(wei) / 1e18).toFixed(4);
+}
 
 export default function DashboardPage() {
+  const { isConnected, address } = useAccount();
+
   return (
     <main className="flex min-h-screen flex-col px-6 pt-32 pb-24">
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-4">
           <Link href="/" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-            &larr; Back to Ghasty
+            &larr; Back
           </Link>
         </div>
 
@@ -30,65 +61,38 @@ export default function DashboardPage() {
               GasPass <span className="text-accent">Dashboard</span>
             </h1>
             <p className="text-muted-foreground mt-4 max-w-xl text-lg leading-relaxed">
-              Manage your sponsor policies, track gas spend, and monitor covered contracts.
+              Sponsor policies, gas spend, and contract coverage on BOT Chain testnet.
             </p>
           </div>
-          <button className="bg-accent hover:bg-accent/90 h-fit cursor-pointer rounded-md px-6 py-3 font-medium text-black transition-colors">
-            + New Policy
-          </button>
+          {isConnected ? (
+            <span className="text-sm text-green-500 font-mono">Connected: {address?.slice(0, 6)}...{address?.slice(-4)}</span>
+          ) : (
+            <span className="text-sm text-muted-foreground">Connect wallet to view live data</span>
+          )}
         </div>
 
         <div className="grid gap-6 md:grid-cols-4">
-          <div className="bg-foreground/5 rounded-xl border border-foreground/10 p-6">
-            <p className="text-muted-foreground text-sm">Active Policies</p>
-            <p className="mt-2 text-3xl font-bold">2</p>
-          </div>
-          <div className="bg-foreground/5 rounded-xl border border-foreground/10 p-6">
-            <p className="text-muted-foreground text-sm">Total Transactions</p>
-            <p className="mt-2 text-3xl font-bold">265</p>
-          </div>
-          <div className="bg-foreground/5 rounded-xl border border-foreground/10 p-6">
-            <p className="text-muted-foreground text-sm">Gas Saved (Users)</p>
-            <p className="mt-2 text-3xl font-bold">~0.04 BOT</p>
-          </div>
-          <div className="bg-foreground/5 rounded-xl border border-foreground/10 p-6">
-            <p className="text-muted-foreground text-sm">Pool Balance</p>
-            <p className="mt-2 text-3xl font-bold">8.15 BOT</p>
-          </div>
+          <StatBox label="Active Policies" value="1" />
+          <StatBox label="Testnet Chain ID" value="968" />
+          <StatBox label="Block Time" value="~0.75s" />
+          <StatBox label="Registry Address" value={REGISTRY_ADDRESS.slice(0, 10) + "..."} />
         </div>
 
-        <div className="mt-10 overflow-x-auto">
+        <div className="mt-10">
+          <h2 className="mb-4 text-xl font-semibold">Policy Details</h2>
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="text-muted-foreground border-b border-foreground/10">
                 <th className="pb-3 pr-6 font-medium">Policy</th>
-                <th className="pb-3 pr-6 font-medium">Owner</th>
                 <th className="pb-3 pr-6 font-medium">Daily Cap</th>
                 <th className="pb-3 pr-6 font-medium">Gas Pool</th>
-                <th className="pb-3 pr-6 font-medium">TXs</th>
-                <th className="pb-3 font-medium">Status</th>
+                <th className="pb-3 pr-6 font-medium">Status</th>
+                <th className="pb-3 font-medium">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {MOCK_POLICIES.map((p) => (
-                <tr key={p.name} className="border-b border-foreground/5 hover:bg-foreground/5 transition-colors">
-                  <td className="py-4 pr-6 font-mono font-medium">{p.name}</td>
-                  <td className="py-4 pr-6 font-mono text-muted-foreground text-xs">{p.owner}</td>
-                  <td className="py-4 pr-6">{p.cap}</td>
-                  <td className="py-4 pr-6">{p.pool}</td>
-                  <td className="py-4 pr-6">{p.txs}</td>
-                  <td className="py-4">
-                    <span
-                      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                        p.active
-                          ? "bg-green-500/10 text-green-600 dark:text-green-400"
-                          : "bg-foreground/10 text-muted-foreground"
-                      }`}
-                    >
-                      {p.active ? "Active" : "Paused"}
-                    </span>
-                  </td>
-                </tr>
+              {POLICIES.map((policy) => (
+                <PolicyRow key={policy} policyName={policy} />
               ))}
             </tbody>
           </table>
@@ -96,14 +100,22 @@ export default function DashboardPage() {
 
         <div className="bg-accent/10 mt-12 rounded-xl border border-accent/20 p-6">
           <p className="text-accent text-sm font-medium uppercase tracking-wider">
-            Connect to BOT Chain
+            BOT Chain Testnet
           </p>
           <p className="text-muted-foreground mt-2 max-w-2xl text-sm leading-relaxed">
-            This dashboard connects to the GasPassRegistry contract deployed on BOT Chain.
-            To manage your policies, connect your wallet and ensure it&apos;s configured for
-            BOT Chain testnet (Chain ID 968, RPC: rpc.bohr.life).
+            Reading live data from GasPassRegistry at{" "}
+            <code className="bg-foreground/10 rounded px-1.5 py-0.5 text-xs">{REGISTRY_ADDRESS}</code>
+            {" "}on BOT Chain testnet (Chain ID 968).
           </p>
           <div className="mt-4 flex gap-3">
+            <a
+              href="https://scan.bohr.life/address/0x85C2dB87F93827a057838b788D28B89dA4fD8c19"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-foreground/10 hover:bg-foreground/20 rounded-md px-4 py-2 text-sm font-medium transition-colors"
+            >
+              View on Explorer
+            </a>
             <a
               href="https://faucet.botchain.ai/basic"
               target="_blank"
@@ -112,17 +124,81 @@ export default function DashboardPage() {
             >
               Get Test Tokens
             </a>
-            <a
-              href="https://scan.bohr.life"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-foreground/10 hover:bg-foreground/20 rounded-md px-4 py-2 text-sm font-medium transition-colors"
-            >
-              Block Explorer
-            </a>
           </div>
         </div>
       </div>
     </main>
+  );
+}
+
+function StatBox({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="bg-foreground/5 rounded-xl border border-foreground/10 p-6">
+      <p className="text-muted-foreground text-sm">{label}</p>
+      <p className="mt-2 text-3xl font-bold font-mono">{value}</p>
+    </div>
+  );
+}
+
+function PolicyRow({ policyName }: { policyName: string }) {
+  const { data, isError } = useReadContract({
+    address: REGISTRY_ADDRESS,
+    abi: REGISTRY_ABI,
+    functionName: "getSponsorStats",
+    args: [policyName],
+  });
+
+  if (isError || !data) {
+    return (
+      <tr className="border-b border-foreground/5">
+        <td className="py-4 pr-6 font-mono font-medium">{policyName}</td>
+        <td className="py-4 pr-6 text-muted-foreground">—</td>
+        <td className="py-4 pr-6 text-muted-foreground">—</td>
+        <td className="py-4 pr-6 text-muted-foreground">Connect wallet</td>
+        <td className="py-4">
+          <a
+            href="https://scan.bohr.life/address/0x85C2dB87F93827a057838b788D28B89dA4fD8c19"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:underline text-xs"
+          >
+            Explorer →
+          </a>
+        </td>
+      </tr>
+    );
+  }
+
+  const [totalSponsored, totalTxs, dailySpent, dailyCap, gasPool, active] = data as [
+    bigint, bigint, bigint, bigint, bigint, boolean,
+  ];
+
+  return (
+    <tr className="border-b border-foreground/5 hover:bg-foreground/5 transition-colors">
+      <td className="py-4 pr-6 font-mono font-medium">{policyName}</td>
+      <td className="py-4 pr-6">{formatBOT(dailyCap)} BOT/day</td>
+      <td className="py-4 pr-6">{formatBOT(gasPool)} BOT</td>
+      <td className="py-4">
+        <span
+          className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
+            active
+              ? "bg-green-500/10 text-green-600 dark:text-green-400"
+              : "bg-foreground/10 text-muted-foreground"
+          }`}
+        >
+          {active ? "Active" : "Paused"}
+        </span>
+      </td>
+      <td className="py-4">
+        <a
+          href="https://scan.bohr.life/address/0x85C2dB87F93827a057838b788D28B89dA4fD8c19"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent hover:underline text-xs"
+        >
+          Explorer →
+        </a>
+      </td>
+    </tr>
   );
 }
