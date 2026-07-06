@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, MousePointer, Sparkles } from "lucide-react";
+import { Link, Wallet, Zap } from "lucide-react";
 import { motion, useInView } from "motion/react";
 import type { ReactNode } from "react";
 import { useRef } from "react";
@@ -9,22 +9,22 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 
 const steps = [
   {
-    icon: Download,
-    title: "Install the extension",
+    icon: Wallet,
+    title: "Connect any wallet",
     description:
-      "Add TLDR to Chrome or Safari with one click. No sign-up required to get started.",
+      "MetaMask, BO Wallet, Rabby — any EVM wallet works. No smart contract wallet migration needed. BOT Chain's EOA Paymaster handles regular accounts.",
   },
   {
-    icon: MousePointer,
-    title: "Browse normally",
+    icon: Link,
+    title: "Integrate the SDK",
     description:
-      "Visit any article, video, or document. TLDR detects content automatically.",
+      "One line of code: ghasty.send(wallet, tx). The SDK wraps pm_isSponsorable, signing, and relay into a single call. No raw JSON-RPC.",
   },
   {
-    icon: Sparkles,
-    title: "Get your summary",
+    icon: Zap,
+    title: "Users pay zero gas",
     description:
-      "One click delivers key takeaways. Save hours every week, effortlessly.",
+      "Transactions confirm in ~0.75s on BOT Chain. Your dApp sponsors the gas through your policy. Users never touch BOT tokens.",
   },
 ];
 
@@ -75,11 +75,10 @@ export function HowItWorks(): ReactNode {
           transition={{ duration: 0.6, ease: easeOut }}
         >
           <h2 className="text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl">
-            Get Started
+            Three steps to gasless
           </h2>
         </motion.div>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {steps.map((step, index) => (
             <StepCard key={step.title} step={step} index={index} />
           ))}

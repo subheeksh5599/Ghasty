@@ -2,7 +2,6 @@
 
 import { ChevronRight as ChevronRightIcon } from "lucide-react";
 import { motion } from "motion/react";
-import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import DitherCursor from "./dither-cursor";
 import RotatingCards, { type Card } from "./rotating-cards";
@@ -11,34 +10,24 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 const headlineText = "Gasless, but fast.";
 
 const cardData = [
-  { label: "Chrome Extension", image: "/img/chrome-extension.webp" },
-  { label: "Safari Extension", image: "/img/safari-extension.webp" },
-  { label: "API Access", image: "/img/api-access.webp" },
-  { label: "Article Summary", image: "/img/article-summary.webp" },
-  { label: "Video Summary", image: "/img/video-summary.webp" },
-  { label: "Podcast Summary", image: "/img/podcast-summary.webp" },
-  { label: "PDF Summary", image: "/img/pdf-summary.webp" },
-  { label: "Research Papers", image: "/img/research-papers.webp" },
-  { label: "Social Threads", image: "/img/social-threads.webp" },
-  { label: "Email Digest", image: "/img/email-digest.webp" },
-  { label: "Book Summary", image: "/img/book-summary.webp" },
+  { label: "Gasless Swaps" },
+  { label: "Zero-Fee Approvals" },
+  { label: "Sponsored Liquidity" },
+  { label: "AI Agent Txs" },
+  { label: "DePIN Payments" },
+  { label: "NFT Mints" },
+  { label: "DAO Votes" },
+  { label: "Token Claims" },
+  { label: "Batch Operations" },
+  { label: "Bridge Txs" },
+  { label: "Oracle Updates" },
 ];
 
 const carouselCards: Card[] = cardData.map((card, index) => ({
   id: index + 1,
   content: (
-    <div className="flex h-full flex-col p-2">
-      <div className="relative flex-1 overflow-hidden rounded-t-sm rounded-b-full">
-        <Image
-          src={card.image}
-          alt={card.label}
-          fill
-          className="object-cover grayscale"
-        />
-      </div>
-      <div className="px-1 pt-3 text-center">
-        <span className="text-sm font-medium">{card.label}</span>
-      </div>
+    <div className="flex h-full flex-col items-center justify-center p-2">
+      <span className="text-2xl font-medium tracking-tight">{card.label}</span>
     </div>
   ),
 }));
