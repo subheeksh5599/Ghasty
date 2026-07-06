@@ -1,0 +1,16 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc = "0.8.28"
+evm_version = "cancun"
+ffi = true
+fs_permissions = [{ access = "read-write", path = "./"}]
+
+[rpc_endpoints]
+bot_testnet = "https://rpc.bohr.life"
+bot_mainnet = "https://rpc.botchain.ai"
+
+[etherscan]
+bot_testnet = { key = "${BOTSCAN_API_KEY}", url = "https://scan.bohr.life/api" }
+bot_mainnet = { key = "${BOTSCAN_API_KEY}", url = "https://scan.botchain.ai/api" }

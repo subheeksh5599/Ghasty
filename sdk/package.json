@@ -1,0 +1,14 @@
+{
+  "name": "ghasty-sdk",
+  "version": "0.1.0",
+  "description": "Universal gasless transaction SDK for BOT Chain's EOA Paymaster",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["bot-chain", "gasless", "paymaster", "eoa", "ghasty"],
+  "license": "MIT"
+}
