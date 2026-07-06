@@ -1,6 +1,7 @@
 "use client";
 
 import { WagmiProvider, createConfig, http } from "wagmi";
+import { injected, metaMask } from "wagmi/connectors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 
@@ -24,6 +25,7 @@ const botMainnet = {
 
 export const config = createConfig({
   chains: [botTestnet, botMainnet],
+  connectors: [injected(), metaMask()],
   transports: {
     [botTestnet.id]: http(),
     [botMainnet.id]: http(),
