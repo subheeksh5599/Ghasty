@@ -7,7 +7,8 @@ import { Pricing } from "@/components/pricing";
 import { Stats } from "@/components/stats";
 import { Testimonials } from "@/components/testimonials";
 import type { Metadata } from "next";
-import { createMetadata, siteConfig } from "@/lib/metadata";
+import { createMetadata } from "@/lib/metadata";
+import { siteConfig } from "@/lib/config";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = createMetadata({
