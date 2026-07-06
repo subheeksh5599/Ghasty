@@ -1,3 +1,4 @@
+import { FloatingWallet } from "@/components/floating-wallet";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
@@ -47,6 +48,7 @@ export default function RootLayout({
           <SkipToContent />
           <Header />
           <ThemeSwitch />
+          <FloatingWallet />
           {children}
           <Footer />
         </Providers>

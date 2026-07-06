@@ -2,7 +2,6 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useAccount, useConnect, useDisconnect, useEnsName } from "wagmi";
 import Link from "next/link";
 import React, { useState, useSyncExternalStore, type ReactNode } from "react";
 
@@ -282,16 +281,13 @@ export function Header(): ReactNode {
               </span>
             </Link>
 
-            <div className="flex items-center gap-3">
-              <ConnectWalletButton />
-              <button
-                className="text-background/80 hover:text-background flex h-full cursor-pointer items-center gap-2 rounded-[3.5px] px-2 transition-colors hover:bg-white/10"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                <HamburgerIcon isOpen={isMenuOpen} />
-                <span className="text-xl font-medium tracking-tight">Menu</span>
-              </button>
-            </div>
+            <button
+              className="text-background/80 hover:text-background flex h-full cursor-pointer items-center gap-2 rounded-[3.5px] px-2 transition-colors hover:bg-white/10"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <HamburgerIcon isOpen={isMenuOpen} />
+              <span className="text-xl font-medium tracking-tight">Menu</span>
+            </button>
           </div>
 
           <AnimatePresence>
@@ -349,34 +345,5 @@ export function Header(): ReactNode {
         </motion.nav>
       </motion.header>
     </>
-  );
-}
-
-function ConnectWalletButton(): ReactNode {
-  const { address, isConnected } = useAccount();
-  const { connect, connectors } = useConnect();
-  const { disconnect } = useDisconnect();
-
-  if (!isConnected) {
-    return (
-      <button
-        onClick={() => {
-          const injected = connectors.find((c) => c.id === "injected");
-          if (injected) connect({ connector: injected });
-        }}
-        className="bg-accent cursor-pointer rounded-[3.5px] px-4 py-2 text-sm font-medium text-black transition-all duration-300 hover:rounded-[50px] hover:opacity-90"
-      >
-        Connect Wallet
-      </button>
-    );
-  }
-
-  return (
-    <button
-      onClick={() => disconnect()}
-      className="text-background/70 hover:text-background border-background/20 cursor-pointer rounded-[3.5px] border px-3 py-1.5 font-mono text-xs transition-colors hover:bg-white/10"
-    >
-      {address?.slice(0, 6)}...{address?.slice(-4)}
-    </button>
   );
 }

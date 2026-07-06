@@ -101,21 +101,6 @@ export default function SwapPage() {
           </>
         )}
 
-        <div className="bg-accent/10 mt-8 rounded-xl border border-accent/20 p-6">
-          <p className="text-accent text-sm font-medium uppercase tracking-wider">
-            BOT Chain Builder Challenge #1
-          </p>
-          <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-            GasPassRegistry:{" "}
-            <code className="bg-foreground/10 rounded px-1 py-0.5 text-xs font-mono">
-              0x85C2dB87F93827a057838b788D28B89dA4fD8c19
-            </code>
-            {" · "}ZeroSwap:{" "}
-            <code className="bg-foreground/10 rounded px-1 py-0.5 text-xs font-mono">
-              {ZEROSWAP_ADDRESS}
-            </code>
-          </p>
-        </div>
       </div>
     </main>
   );

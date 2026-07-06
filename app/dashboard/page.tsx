@@ -141,12 +141,25 @@ function StatBox({ label, value }: { label: string; value: string }) {
 }
 
 function PolicyRow({ policyName }: { policyName: string }) {
-  const { data, isError } = useReadContract({
+  const { data, isError, isLoading } = useReadContract({
     address: REGISTRY_ADDRESS,
     abi: REGISTRY_ABI,
     functionName: "getSponsorStats",
     args: [policyName],
+    query: { retry: 2, refetchInterval: false },
   });
+
+  if (isLoading) {
+    return (
+      <tr className="border-b border-foreground/5 animate-pulse">
+        <td className="py-4 pr-6 font-mono font-medium">{policyName}</td>
+        <td className="py-4 pr-6 text-muted-foreground">loading...</td>
+        <td className="py-4 pr-6 text-muted-foreground">loading...</td>
+        <td className="py-4 text-muted-foreground">...</td>
+        <td className="py-4" />
+      </tr>
+    );
+  }
 
   if (isError || !data) {
     return (
@@ -154,7 +167,7 @@ function PolicyRow({ policyName }: { policyName: string }) {
         <td className="py-4 pr-6 font-mono font-medium">{policyName}</td>
         <td className="py-4 pr-6 text-muted-foreground">—</td>
         <td className="py-4 pr-6 text-muted-foreground">—</td>
-        <td className="py-4 pr-6 text-muted-foreground">Connect wallet</td>
+        <td className="py-4 pr-6 text-yellow-500/80 text-xs">RPC read failed</td>
         <td className="py-4">
           <a
             href="https://scan.bohr.life/address/0x85C2dB87F93827a057838b788D28B89dA4fD8c19"
@@ -169,9 +182,8 @@ function PolicyRow({ policyName }: { policyName: string }) {
     );
   }
 
-  const [totalSponsored, totalTxs, dailySpent, dailyCap, gasPool, active] = data as [
-    bigint, bigint, bigint, bigint, bigint, boolean,
-  ];
+  const result = data as unknown as [bigint, bigint, bigint, bigint, bigint, boolean];
+  const [totalSponsored, totalTxs, dailySpent, dailyCap, gasPool, active] = result;
 
   return (
     <tr className="border-b border-foreground/5 hover:bg-foreground/5 transition-colors">
