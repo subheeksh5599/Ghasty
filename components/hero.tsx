@@ -140,18 +140,7 @@ export function Hero(): ReactNode {
           }}
           className="text-muted-foreground mx-auto mt-6 max-w-xl text-2xl leading-12 tracking-tight md:text-3xl"
         >
-          <span className="text-foreground bg-foreground/5 inline-block rounded-md px-2 py-0.5 leading-10">
-            Read less
-          </span>{" "}
-          &{" "}
-          <span className="text-foreground bg-foreground/5 inline-block rounded-full px-4 py-0.5 leading-10">
-            know more
-          </span>{" "}
-          Save{" "}
-          <span className="text-foreground bg-foreground/5 inline-block rounded-md px-2 py-0.5 leading-10">
-            hours
-          </span>{" "}
-          every week with AI summaries done right.
+          Users pay <span className="text-foreground bg-foreground/5 inline-block rounded-md px-2 py-0.5 leading-10">zero gas</span> on every transaction. Ghasty wraps BOT Chain&apos;s EOA Paymaster into a <span className="text-foreground bg-foreground/5 inline-block rounded-full px-4 py-0.5 leading-10">single SDK call</span>.
         </motion.p>
       </div>
 
@@ -192,8 +181,7 @@ export function Hero(): ReactNode {
         transition={{ duration: 0.8, ease: easeOut }}
       >
         <h2 className="max-w-3xl text-3xl font-medium tracking-tight md:text-5xl lg:text-6xl">
-          Turn Hours of Content <br />
-          Into Fast Insight
+          Zero BOT. Real Swaps.
         </h2>
         <motion.a
           href="#"
@@ -203,7 +191,7 @@ export function Hero(): ReactNode {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: easeOut, delay: 0.2 }}
         >
-          <span>Get Started Free</span>
+          <span>View on GitHub</span>
           <span className="bg-background text-foreground flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110">
             <ChevronRightIcon className="relative left-px h-4 w-4" />
           </span>

@@ -31,15 +31,15 @@ export const heroConfig = {
     suffix: "on BOT Chain",
   },
   description:
-    "Users pay ZERO gas. You sponsor tx fees. Ghasty wraps BOT Chain's EOA Paymaster into a single SDK call. No smart contract wallets. No EIP-4337. Just gasless.",
+    "Users pay ZERO gas. You sponsor tx fees. Ghasty wraps BOT Chain's EOA Paymaster into a single SDK call.",
   cta: {
     primary: {
-      text: "Try ZeroSwap Demo",
-      href: "/swap",
-    },
-    secondary: {
       text: "View on GitHub",
       href: "https://github.com/subheeksh5599/Ghasty",
+    },
+    secondary: {
+      text: "Try ZeroSwap",
+      href: "/swap",
     },
   },
   carousel: [
@@ -105,10 +105,10 @@ export const faqConfig = {
 
 export const finalCtaConfig = {
   headline: "Ready to go gasless?",
-  description: "Deploy your first gasless dApp on BOT Chain in under 5 minutes. Zero BOT needed for your users.",
+  description: "Deploy on BOT Chain. One SDK call. Zero gas from your users.",
   cta: {
-    text: "Start Building",
-    href: "/dashboard",
+    text: "Star on GitHub",
+    href: "https://github.com/subheeksh5599/Ghasty",
   },
 } as const;
 
@@ -122,7 +122,7 @@ export const footerConfig = {
   links: {
     product: [
       { label: "SDK Docs", href: "https://github.com/subheeksh5599/Ghasty#readme" },
-      { label: "ZeroSwap Demo", href: "/swap" },
+      { label: "ZeroSwap", href: "/swap" },
       { label: "Dashboard", href: "/dashboard" },
       { label: "Contracts", href: "https://github.com/subheeksh5599/Ghasty/tree/main/contracts" },
     ],
@@ -137,7 +137,7 @@ export const footerConfig = {
     location: "BOT Chain Testnet",
     address: "Chain ID 968\nRPC: rpc.bohr.life",
     hours: "0.75s block time · Near-zero fees",
-    email: "builders@botchain.ai",
+    email: "komasubheeksh@gmail.com",
   },
   copyright: `\u00A9 ${new Date().getFullYear()} Ghasty Protocol. Built on BOT Chain.`,
 } as const;
@@ -146,5 +146,5 @@ export const features = {
   smoothScroll: true,
   darkMode: true,
   ditherCursor: false,
-  statsSection: true,
+  statsSection: false,
 } as const;

@@ -1,25 +1,12 @@
 "use client";
 
-import { ChevronRightIcon } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useState, type ReactNode } from "react";
-import DitherCursor from "./dither-cursor";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export function FinalCTA(): ReactNode {
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check for mobile on mount
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   return (
     <section className="px-6 py-24 md:py-36">
       <motion.div
@@ -29,15 +16,6 @@ export function FinalCTA(): ReactNode {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: easeOut }}
       >
-        {!isMobile && (
-          <DitherCursor
-            color="#000000"
-            radius={0.1}
-            opacity={0.1}
-            position="absolute"
-          />
-        )}
-
         <div className="relative z-10">
           <motion.h2
             className="mx-auto mb-6 max-w-2xl text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl"
@@ -46,7 +24,7 @@ export function FinalCTA(): ReactNode {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: easeOut }}
           >
-            Ready to save hours every week?
+            Ready to go gasless?
           </motion.h2>
 
           <motion.p
@@ -56,12 +34,11 @@ export function FinalCTA(): ReactNode {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2, ease: easeOut }}
           >
-            Join thousands who read smarter. Install the extension and start
-            summarizing in seconds.
+            Deploy on BOT Chain. One SDK call. Zero gas from your users.
           </motion.p>
 
           <motion.a
-            href="#"
+            href="https://github.com/subheeksh5599/Ghasty"
             className="group inline-flex w-full items-center justify-center gap-3 rounded-md bg-white py-3 pl-5 pr-3 font-medium text-black transition-all duration-500 ease-out hover:rounded-[50px] hover:shadow-lg sm:w-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -69,10 +46,7 @@ export function FinalCTA(): ReactNode {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3, ease: easeOut }}
           >
-            <span>Add to Chrome</span>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-black transition-all duration-300 group-hover:scale-110">
-              <ChevronRightIcon className="h-4 w-4 relative left-px" />
-            </span>
+            <span>Star on GitHub</span>
           </motion.a>
         </div>
       </motion.div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, ChevronRightIcon } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useInView } from "motion/react";
 import { useRef, useState, type ReactNode } from "react";
 
@@ -8,29 +8,29 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 
 const faqs = [
   {
-    question: "How does TLDR summarize content?",
+    question: "What is Ghasty?",
     answer:
-      "TLDR uses advanced AI models to analyze and extract key information from any article, video, or document. Our algorithms identify the most important points and present them in a concise, easy-to-read format.",
+      "Ghasty is a gasless transaction protocol built natively on BOT Chain. It wraps the EOA Paymaster into a one-line SDK, letting any dApp offer zero-gas transactions for regular wallets — no smart contract wallets, no EIP-4337 required.",
   },
   {
-    question: "Is my data private and secure?",
+    question: "How does gasless work on BOT Chain?",
     answer:
-      "Absolutely. We process content locally whenever possible and never store your browsing history or personal data. All connections are encrypted, and we're fully GDPR compliant.",
+      "BOT Chain has a native EOA Paymaster that bundles zero-gas user transactions with a sponsor's fee-paying transaction. The builder includes both in a block atomically. Ghasty handles the pm_isSponsorable check, signing, and relay — all behind a single function call.",
   },
   {
-    question: "Can I use TLDR on any website?",
+    question: "Which wallets are supported?",
     answer:
-      "Yes! TLDR works on virtually any website with text content. This includes news articles, blog posts, research papers, documentation, and even YouTube video transcripts.",
+      "Any EVM wallet — MetaMask, BO Wallet, Rabby, Frame. Since BOT Chain's paymaster works with regular EOAs, there's no migration or smart contract wallet needed. If your users have a wallet, it works.",
   },
   {
-    question: "What's included in the free plan?",
+    question: "What does it cost to sponsor transactions?",
     answer:
-      "The free plan includes 10 summaries per day, basic summarization features, and access to both Chrome and Safari extensions. No credit card required to get started.",
+      "BOT Chain has near-zero fees. Sponsoring roughly 1,000 transactions costs less than a cent. The real cost is your gas pool — you set daily caps per policy so there are no surprises.",
   },
   {
-    question: "How do I cancel my subscription?",
+    question: "Where are the contracts deployed?",
     answer:
-      "You can cancel anytime from your account settings. There are no cancellation fees, and you'll retain access to Pro features until the end of your billing period.",
+      "GasPassRegistry and ZeroSwap are live on BOT Chain testnet. Check DEPLOY.md in the repo for addresses, transaction hashes, and explorer links. The GitHub repo has the full source.",
   },
 ];
 
@@ -107,7 +107,7 @@ export function FAQ(): ReactNode {
           transition={{ duration: 0.6, ease: easeOut }}
         >
           <h2 className="text-background text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl">
-            Common Questions
+            Questions
           </h2>
         </motion.div>
 
@@ -127,27 +127,6 @@ export function FAQ(): ReactNode {
               onToggle={() => handleToggle(index)}
             />
           ))}
-        </motion.div>
-
-        <motion.div
-          className="mt-12 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: easeOut }}
-        >
-          <p className="text-background/60 mb-6 text-base">
-            Still have questions? We&apos;re here to help.
-          </p>
-          <a
-            href="mailto:hello@tldr.app"
-            className="group inline-flex items-center gap-3 rounded-md bg-background py-3 pl-5 pr-3 font-medium text-foreground shadow-lg transition-all duration-500 ease-out hover:rounded-[50px]"
-          >
-            <span>Get in Touch</span>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 group-hover:scale-110">
-              <ChevronRightIcon className="h-4 w-4 relative left-px" />
-            </span>
-          </a>
         </motion.div>
       </div>
     </section>

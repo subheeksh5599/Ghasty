@@ -3,9 +3,6 @@ import { Features } from "@/components/features";
 import { FinalCTA } from "@/components/final-cta";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
-import { Pricing } from "@/components/pricing";
-import { Stats } from "@/components/stats";
-import { Testimonials } from "@/components/testimonials";
 import type { Metadata } from "next";
 import { createMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/config";
@@ -23,9 +20,6 @@ export default function HomePage(): ReactNode {
       <Hero />
       <HowItWorks />
       <Features />
-      <Stats />
-      <Testimonials />
-      <Pricing />
       <FAQ />
       <FinalCTA />
     </main>
