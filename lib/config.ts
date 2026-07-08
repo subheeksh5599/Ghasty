@@ -34,12 +34,12 @@ export const heroConfig = {
     "Users pay ZERO gas. You sponsor tx fees. Ghasty wraps BOT Chain's EOA Paymaster into a single SDK call.",
   cta: {
     primary: {
-      text: "View on GitHub",
-      href: "https://github.com/subheeksh5599/Ghasty",
+      text: "Launch App",
+      href: "/wallet",
     },
     secondary: {
-      text: "Try ZeroSwap",
-      href: "/swap",
+      text: "View on GitHub",
+      href: "https://github.com/subheeksh5599/Ghasty",
     },
   },
   carousel: [
@@ -107,8 +107,8 @@ export const finalCtaConfig = {
   headline: "Ready to go gasless?",
   description: "Deploy on BOT Chain. One SDK call. Zero gas from your users.",
   cta: {
-    text: "Star on GitHub",
-    href: "https://github.com/subheeksh5599/Ghasty",
+    text: "Launch App",
+    href: "/wallet",
   },
 } as const;
 

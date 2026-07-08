@@ -31,11 +31,11 @@ function useIsDesktop(): boolean {
 const menuCards = [
   {
     id: "products",
-    title: "PRODUCTS",
+    title: "APP",
     links: [
-      { label: "ZeroSwap Demo", href: "/swap", badge: "DEMO" },
-      { label: "Sponsor Dashboard", href: "/dashboard", badge: null },
-      { label: "SDK Docs", href: "#", badge: null },
+      { label: "Connect Wallet", href: "/wallet", badge: null },
+      { label: "ZeroSwap", href: "/swap", badge: "DEMO" },
+      { label: "Dashboard", href: "/dashboard", badge: null },
     ],
   },
   {
