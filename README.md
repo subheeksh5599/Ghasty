@@ -269,25 +269,6 @@ The Ghasty Dashboard (built into this repo at `/app/dashboard`) provides:
 
 ---
 
-## Track & Prize Strategy
-
-Ghasty targets **all three prize categories**:
-
-### Track: EVM Deployment / AI Agent
-Deepest BOT Chain integration possible — EOA Paymaster + Blob API + fast blocks. Not a port; natively built for BOT Chain.
-
-### Best Content
-Demo video: "Zero BOT. Real swaps." — a MetaMask user with 0 BOT balance executing real DEX trades. Tutorial: "How to add gasless to your BOT Chain dApp in 5 minutes."
-
-### PR / Bug / Optimization Bounty
-While building, identify and document:
-- Paymaster API edge cases
-- Docs gaps in the Quick Start guide
-- Wallet integration friction points
-- Blob API usage patterns and limitations
-
----
-
 ## Development
 
 ```bash
