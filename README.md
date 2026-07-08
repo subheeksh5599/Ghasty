@@ -4,9 +4,19 @@
 
 Ghasty is the first gas abstraction layer on BOT Chain, built natively on the EOA Paymaster infrastructure. It lets ANY dApp offer gasless transactions with a single SDK call — no smart contract wallets, no EIP-4337, no migration required.
 
-```
-npx ghasty init && npx ghasty deploy
-```
+**Live:** [ghasty.vercel.app](https://ghasty.vercel.app) · **Wallet:** [ghasty.vercel.app/wallet](https://ghasty.vercel.app/wallet) · **Swap:** [ghasty.vercel.app/swap](https://ghasty.vercel.app/swap)
+
+---
+
+## Deployed Contracts (BOT Chain Testnet · Chain ID 968)
+
+| Contract | Address | Explorer |
+|----------|---------|----------|
+| GasPassRegistry | `0x85C2dB87F93827a057838b788D28B89dA4fD8c19` | [scan.bohr.life](https://scan.bohr.life/address/0x85C2dB87F93827a057838b788D28B89dA4fD8c19) |
+| ZeroSwap | `0x9ef56cef4043ABfDBf72acB3C928BC560fCc91a0` | [scan.bohr.life](https://scan.bohr.life/address/0x9ef56cef4043ABfDBf72acB3C928BC560fCc91a0) |
+| MockToken (GTT) | `0x3C31243a186a10885D6012F54C4A3B2FBE420471` | [scan.bohr.life](https://scan.bohr.life/address/0x3C31243a186a10885D6012F54C4A3B2FBE420471) |
+
+**Sponsor Policy:** `ghasty-demo` — 0.1 BOT/day cap, 1 BOT pool, covering ZeroSwap (max 300k gas/tx).
 
 ---
 
